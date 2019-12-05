@@ -1,12 +1,16 @@
 import { Model } from 'mongoose';
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpService } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Item } from './interfaces/item.interface'
-//import { CreateItemDto } from './dto/create-item.dto';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ItemsService {
-  constructor(@InjectModel('Item') private readonly itemModel: Model<Item>) { }
+  constructor(
+    private readonly httpService: HttpService,
+    @InjectModel('Item') private readonly itemModel: Model<Item>,
+
+  ) { }
 
   async findAll(): Promise<Item[]> {
     return await this.itemModel.find();
@@ -28,4 +32,13 @@ export class ItemsService {
   async update(id: string, item: Item): Promise<Item> {
     return await this.itemModel.findByIdAndUpdate(id, item, { new: true });
   }
+
+  external(): any {
+    return this.httpService.get('https://api.github.com/users/gcantuw')
+      .pipe(
+        map(response => response.data)
+      );
+  }
+
+
 }
