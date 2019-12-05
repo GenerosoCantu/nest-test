@@ -11,10 +11,10 @@ export class AuthController {
     private readonly authService: AuthService,
   ) { }
 
-  //@UseGuards(AuthGuard('local'))
+  @UseGuards(AuthGuard('local'))
   @Post('login')
   async login(@Request() req) {
-    return this.authService.login(req.body);
+    return this.authService.login(req.user);
   }
 
 }

@@ -21,4 +21,13 @@ export class UsersService {
   async findOne(id: string): Promise<User> {
     return await this.userModel.findOne({ _id: id });
   }
+
+  async findUser(username: string): Promise<User> {
+    return await this.userModel.findOne({ username: username });
+  }
+
+  async badLogin(id: string): Promise<User> {
+    return await this.userModel.findByIdAndUpdate(id, { fail: 1 }, { new: true });
+  }
+
 }
