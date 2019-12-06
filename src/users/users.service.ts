@@ -26,8 +26,10 @@ export class UsersService {
     return await this.userModel.findOne({ username: username });
   }
 
-  async badLogin(id: string): Promise<User> {
-    return await this.userModel.findByIdAndUpdate(id, { fail: 1 }, { new: true });
+  async badLogin(id: string, login_fail: number): Promise<User> {
+    const fails = (login_fail) ? login_fail + 1 : 1;
+    const body = (fails > 3) ? { login_fail: fails, locked: true } : { login_fail: fails };
+    return await this.userModel.findByIdAndUpdate(id, body, { new: true });
   }
 
 }

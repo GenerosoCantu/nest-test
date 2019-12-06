@@ -13,7 +13,9 @@ export const UserSchema = new mongoose.Schema({
   reg_time: {
     type: Date,
     default: Date.now
-  }
+  },
+  login_fail: Number,
+  locked: Boolean
 }, {
   versionKey: false
 });

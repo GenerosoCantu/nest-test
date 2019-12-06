@@ -9,4 +9,10 @@ export class UserDto {
 
   @ApiModelProperty()
   readonly reg_time: Date;
+
+  @ApiModelProperty()
+  readonly login_fail: number;
+
+  @ApiModelProperty()
+  readonly locked: boolean;
 }

@@ -5,4 +5,6 @@ export interface User {
   username: string;
   password: string;
   reg_time: Date;
+  login_fail: number;
+  locked: boolean;
 }
