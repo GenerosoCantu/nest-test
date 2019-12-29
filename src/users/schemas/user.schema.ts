@@ -14,8 +14,15 @@ export const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  permissions: [String],
   login_fail: Number,
   locked: Boolean
+}, {
+  versionKey: false
+});
+
+export const PermissionsSchema = new mongoose.Schema({
+  permissions: [String]
 }, {
   versionKey: false
 });

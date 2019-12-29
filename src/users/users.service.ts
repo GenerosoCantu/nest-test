@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from './interfaces/user.interface'
+import { User, Permissions } from './interfaces/user.interface'
 
 @Injectable()
 export class UsersService {
@@ -30,6 +30,10 @@ export class UsersService {
     const fails = (login_fail) ? login_fail + 1 : 1;
     const body = (fails > 3) ? { login_fail: fails, locked: true } : { login_fail: fails };
     return await this.userModel.findByIdAndUpdate(id, body, { new: true });
+  }
+
+  async updatePermissions(id: string, permissions: Permissions): Promise<User> {
+    return await this.userModel.findByIdAndUpdate(id, permissions);
   }
 
 }

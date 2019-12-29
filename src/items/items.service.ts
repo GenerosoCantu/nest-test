@@ -1,5 +1,5 @@
 import { Model } from 'mongoose';
-import { Injectable, HttpService } from '@nestjs/common';
+import { Injectable, HttpService, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Item } from './interfaces/item.interface'
 import { map } from 'rxjs/operators';
@@ -17,7 +17,11 @@ export class ItemsService {
   }
 
   async findOne(id: string): Promise<Item> {
-    return await this.itemModel.findOne({ _id: id });
+    const found = await this.itemModel.findOne({ _id: id });
+    if (!found) {
+      throw new NotFoundException();
+    }
+    return found;
   }
 
   async create(item: Item): Promise<Item> {
