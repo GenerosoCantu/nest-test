@@ -53,10 +53,13 @@ export class ItemsController {
     let str1 = new String(__dirname);
 
     const storage = new Storage({
-      keyFilename: str1.concat("../../../crucial-decoder-263505-5285cf8b45e7.json"),
-      projectId: "crucial-decoder-263505"
+      credentials: {
+        client_email: process.env.client_email,
+        private_key: process.env.private_key
+      },
+      projectId: process.env.projectId
     });
-
+    //process.env.projectId
     //storage.getBuckets().then(x => console.log(x));
 
     const bucket = storage.bucket('joornalo-bucket-1');

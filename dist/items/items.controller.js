@@ -40,8 +40,11 @@ let ItemsController = class ItemsController {
     uploadFile(files) {
         let str1 = new String(__dirname);
         const storage = new storage_1.Storage({
-            keyFilename: str1.concat("../../../crucial-decoder-263505-5285cf8b45e7.json"),
-            projectId: "crucial-decoder-263505"
+            credentials: {
+                client_email: process.env.client_email,
+                private_key: process.env.private_key
+            },
+            projectId: process.env.projectId
         });
         const bucket = storage.bucket('joornalo-bucket-1');
         const blobStream = bucket.file(files[0].originalname).createWriteStream({
