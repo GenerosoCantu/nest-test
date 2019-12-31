@@ -42,7 +42,7 @@ let ItemsController = class ItemsController {
         const storage = new storage_1.Storage({
             credentials: {
                 client_email: process.env.client_email,
-                private_key: process.env.private_key
+                private_key: process.env.private_key.replace(/\\n/g, '\n')
             },
             projectId: process.env.projectId
         });

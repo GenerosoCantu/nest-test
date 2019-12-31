@@ -1958,7 +1958,7 @@
         "signature": "076c9f26394e19e834f74eb53f87a8242c0d9ba05c47e63a873907f9a111a183"
       },
       "../src/items/items.controller.ts": {
-        "version": "cac52c19353f338bccb84a0837fd8b0eff696709831ea572e6a6919abd9a245c",
+        "version": "c0ade712378011ae164d7a6d437b53d1ce6a000ef2b3624acf5e63ebe3fe4697",
         "signature": "9c8c4788be102d89b27a212a62064ad7e92647e01ddc7c3b2154c8046d04046a"
       },
       "../node_modules/@types/uuid/interfaces.d.ts": {

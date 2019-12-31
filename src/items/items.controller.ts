@@ -55,7 +55,7 @@ export class ItemsController {
     const storage = new Storage({
       credentials: {
         client_email: process.env.client_email,
-        private_key: process.env.private_key
+        private_key: process.env.private_key.replace(/\\n/g, '\n')
       },
       projectId: process.env.projectId
     });
