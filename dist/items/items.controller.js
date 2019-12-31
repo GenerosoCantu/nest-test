@@ -16,6 +16,8 @@ const common_1 = require("@nestjs/common");
 const create_item_dto_1 = require("./dto/create-item.dto");
 const items_service_1 = require("./items.service");
 const common_2 = require("@nestjs/common");
+const platform_express_1 = require("@nestjs/platform-express");
+const storage_1 = require("@google-cloud/storage");
 let ItemsController = class ItemsController {
     constructor(itemsService) {
         this.itemsService = itemsService;
@@ -34,6 +36,20 @@ let ItemsController = class ItemsController {
     }
     update(updateItemDto, id) {
         return this.itemsService.update(id, updateItemDto);
+    }
+    uploadFile(files) {
+        let str1 = new String(__dirname);
+        const storage = new storage_1.Storage({
+            keyFilename: str1.concat("../../../crucial-decoder-263505-5285cf8b45e7.json"),
+            projectId: "crucial-decoder-263505"
+        });
+        const bucket = storage.bucket('joornalo-bucket-1');
+        const blobStream = bucket.file(files[0].originalname).createWriteStream({
+            resumable: false,
+            gzip: true
+        });
+        blobStream.end(files[0].buffer);
+        return { file: files[0].originalname };
     }
 };
 __decorate([
@@ -70,6 +86,14 @@ __decorate([
     __metadata("design:paramtypes", [create_item_dto_1.CreateItemDto, Object]),
     __metadata("design:returntype", Promise)
 ], ItemsController.prototype, "update", null);
+__decorate([
+    common_1.Post('upload'),
+    common_2.UseInterceptors(platform_express_1.FilesInterceptor('files')),
+    __param(0, common_2.UploadedFiles()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], ItemsController.prototype, "uploadFile", null);
 ItemsController = __decorate([
     common_1.Controller('items'),
     __metadata("design:paramtypes", [items_service_1.ItemsService])

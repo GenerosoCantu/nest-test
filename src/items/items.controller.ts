@@ -2,7 +2,12 @@ import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common'
 import { CreateItemDto } from './dto/create-item.dto';
 import { ItemsService } from './items.service';
 import { Item } from './interfaces/item.interface';
-import { ValidationPipe, ParseUUIDPipe } from '@nestjs/common';
+import { ValidationPipe, ParseUUIDPipe, UploadedFile, UseInterceptors, UploadedFiles } from '@nestjs/common';
+import { FilesInterceptor } from '@nestjs/platform-express';
+
+import { Storage } from '@google-cloud/storage';
+
+// import { ApolloServer } from 'apollo-server-express';
 
 @Controller('items')
 export class ItemsController {
@@ -38,6 +43,32 @@ export class ItemsController {
   @Put(':id')
   update(@Body() updateItemDto: CreateItemDto, @Param('id') id): Promise<Item> {
     return this.itemsService.update(id, updateItemDto);
+  }
+
+  @Post('upload')
+  @UseInterceptors(FilesInterceptor('files'))
+  uploadFile(@UploadedFiles() files) {
+    //console.log(files);
+
+    let str1 = new String(__dirname);
+
+    const storage = new Storage({
+      keyFilename: str1.concat("../../../crucial-decoder-263505-5285cf8b45e7.json"),
+      projectId: "crucial-decoder-263505"
+    });
+
+    //storage.getBuckets().then(x => console.log(x));
+
+    const bucket = storage.bucket('joornalo-bucket-1');
+
+    const blobStream = bucket.file(files[0].originalname).createWriteStream({
+      resumable: false,
+      gzip: true
+    })
+
+    blobStream.end(files[0].buffer);
+
+    return { file: files[0].originalname };
   }
 
 }
