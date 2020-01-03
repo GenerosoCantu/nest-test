@@ -1,0 +1,5 @@
+gcs:
+  bucket: ''
+  client_email: ''
+  project_id: ''
+  private_key: ''

@@ -11,4 +11,7 @@ export declare class ItemsService {
     delete(id: string): Promise<Item>;
     update(id: string, item: Item): Promise<Item>;
     external(): any;
+    uploadFile(file: any): Promise<{
+        file: any;
+    }>;
 }

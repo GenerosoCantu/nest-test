@@ -5,9 +5,6 @@ import { Item } from './interfaces/item.interface';
 import { ValidationPipe, ParseUUIDPipe, UploadedFile, UseInterceptors, UploadedFiles } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 
-import { Storage } from '@google-cloud/storage';
-
-// import { ApolloServer } from 'apollo-server-express';
 
 @Controller('items')
 export class ItemsController {
@@ -46,32 +43,9 @@ export class ItemsController {
   }
 
   @Post('upload')
-  @UseInterceptors(FilesInterceptor('files'))
-  uploadFile(@UploadedFiles() files) {
-    //console.log(files);
-
-    let str1 = new String(__dirname);
-
-    const storage = new Storage({
-      credentials: {
-        client_email: process.env.client_email,
-        private_key: process.env.private_key.replace(/\\n/g, '\n')
-      },
-      projectId: process.env.projectId
-    });
-    //process.env.projectId
-    //storage.getBuckets().then(x => console.log(x));
-
-    const bucket = storage.bucket('joornalo-bucket-1');
-
-    const blobStream = bucket.file(files[0].originalname).createWriteStream({
-      resumable: false,
-      gzip: true
-    })
-
-    blobStream.end(files[0].buffer);
-
-    return { file: files[0].originalname };
+  @UseInterceptors(FilesInterceptor('file'))
+  uploadFile(@UploadedFiles() file) {
+    return this.itemsService.uploadFile(file);
   }
 
 }
