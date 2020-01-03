@@ -1886,7 +1886,7 @@
         "signature": "076c9f26394e19e834f74eb53f87a8242c0d9ba05c47e63a873907f9a111a183"
       },
       "../src/items/items.service.ts": {
-        "version": "8c28ecae78db2f7616adcd033a593c02ac91c32fe76ec4f6619adec4e5568937",
+        "version": "048f4428a2665be514dc01628cc63654de0b603f875ada7ad61a1f91fd5d3707",
         "signature": "0f7ee550bddb64cb3c5c366380ad39a9aac8d174ccefc91584ca886c947701b7"
       },
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts": {

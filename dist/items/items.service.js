@@ -56,7 +56,7 @@ let ItemsService = class ItemsService {
                 client_email: process.env.client_email || envVar.client_email,
                 private_key: private_key.replace(/\\n/g, '\n')
             },
-            projectId: process.env.projectId || envVar.project_id
+            projectId: process.env.project_id || envVar.project_id
         });
         const bucket = storage.bucket(process.env.bucket || envVar.bucket);
         const blobStream = bucket.file('a/' + file[0].originalname).createWriteStream({
