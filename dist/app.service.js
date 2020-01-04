@@ -7,9 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
+const config = require("config");
+const envVar = config.get('gcs');
 let AppService = class AppService {
     getHello() {
-        return `Hello World! ` + process.env.bucket;
+        const bucket = process.env.bucket || envVar.bucket;
+        return `Hello World! ` + bucket;
     }
 };
 AppService = __decorate([

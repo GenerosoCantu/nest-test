@@ -1106,7 +1106,7 @@
         "signature": "e0e01013f40a172c13d53c88ce2695741df27852da7ede9e2e336c86c43c8ec5"
       },
       "../src/app.service.ts": {
-        "version": "0110f5d71ced333b280e59a022e464330a6d3f49ff92c9b0c09b6366a4623d53",
+        "version": "9f89cdadb67202d94d45c297b71386447063003c1062c62d84a13c9aa8c64688",
         "signature": "d8f4cb0109c1b399d657807fd6af504d74a9300325e0fc915abdbf658b464a97"
       },
       "../src/app.controller.ts": {
