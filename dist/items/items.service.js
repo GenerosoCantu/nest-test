@@ -19,7 +19,17 @@ const mongoose_2 = require("@nestjs/mongoose");
 const operators_1 = require("rxjs/operators");
 const config = require("config");
 const storage_1 = require("@google-cloud/storage");
+const fs = require("fs");
 const envVar = config.get('gcs');
+const private_key = process.env.private_key || envVar.private_key;
+const storage = new storage_1.Storage({
+    credentials: {
+        client_email: process.env.client_email || envVar.client_email,
+        private_key: private_key.replace(/\\n/g, '\n')
+    },
+    projectId: process.env.project_id || envVar.project_id
+});
+const bucket = storage.bucket(process.env.bucket || envVar.bucket);
 let ItemsService = class ItemsService {
     constructor(httpService, itemModel) {
         this.httpService = httpService;
@@ -36,6 +46,19 @@ let ItemsService = class ItemsService {
         return found;
     }
     async create(item) {
+        fs.writeFile("tmp.json", JSON.stringify(item), function (err) {
+            if (err)
+                throw err;
+            fs.readFile("tmp.json", function (err, data) {
+                if (err)
+                    throw err;
+                const blobStream = bucket.file('b/' + 'data.json').createWriteStream({
+                    resumable: false,
+                    gzip: true
+                });
+                blobStream.end(data);
+            });
+        });
         const newItem = new this.itemModel(item);
         return await newItem.save();
     }
@@ -50,15 +73,6 @@ let ItemsService = class ItemsService {
             .pipe(operators_1.map(response => response.data));
     }
     async uploadFile(file) {
-        const private_key = process.env.private_key || envVar.private_key;
-        const storage = new storage_1.Storage({
-            credentials: {
-                client_email: process.env.client_email || envVar.client_email,
-                private_key: private_key.replace(/\\n/g, '\n')
-            },
-            projectId: process.env.project_id || envVar.project_id
-        });
-        const bucket = storage.bucket(process.env.bucket || envVar.bucket);
         const blobStream = bucket.file('a/' + file[0].originalname).createWriteStream({
             resumable: false,
             gzip: true

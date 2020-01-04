@@ -5,8 +5,22 @@ import { Item } from './interfaces/item.interface'
 import { map } from 'rxjs/operators';
 import * as config from 'config';
 import { Storage } from '@google-cloud/storage';
+import * as fs from 'fs';
+import * as path from 'path';
 
 const envVar = config.get('gcs');
+
+const private_key = process.env.private_key || envVar.private_key;
+const storage = new Storage({
+  credentials: {
+    client_email: process.env.client_email || envVar.client_email,
+    private_key: private_key.replace(/\\n/g, '\n')
+  },
+  projectId: process.env.project_id || envVar.project_id
+});
+const bucket = storage.bucket(process.env.bucket || envVar.bucket);
+//storage.getBuckets().then(x => console.log(x));
+
 
 @Injectable()
 export class ItemsService {
@@ -29,6 +43,21 @@ export class ItemsService {
   }
 
   async create(item: Item): Promise<Item> {
+
+    fs.writeFile("tmp.json", JSON.stringify(item), function (err) {
+      if (err) throw err;
+
+      fs.readFile("tmp.json", function (err, data) {
+        if (err) throw err;
+        const blobStream = bucket.file('b/' + 'data.json').createWriteStream({
+          resumable: false,
+          gzip: true
+        })
+        blobStream.end(data);
+      });
+
+    });
+
     const newItem = new this.itemModel(item);
     return await newItem.save();
   }
@@ -49,26 +78,11 @@ export class ItemsService {
   }
 
   async uploadFile(file) {
-
-    const private_key = process.env.private_key || envVar.private_key;
-    const storage = new Storage({
-      credentials: {
-        client_email: process.env.client_email || envVar.client_email,
-        private_key: private_key.replace(/\\n/g, '\n')
-      },
-      projectId: process.env.project_id || envVar.project_id
-    });
-
-    //storage.getBuckets().then(x => console.log(x));
-
-    const bucket = storage.bucket(process.env.bucket || envVar.bucket);
     const blobStream = bucket.file('a/' + file[0].originalname).createWriteStream({
       resumable: false,
       gzip: true
     })
-
     blobStream.end(file[0].buffer);
-
     return { file: file[0].originalname };
   }
 
