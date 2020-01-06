@@ -44,7 +44,7 @@ export class ItemsService {
 
   async create(item: Item): Promise<Item> {
     const newItem = new this.itemModel(item);
-    fs.writeFile('../data/a/' + newItem['_id'] + '.json', JSON.stringify(item), function (err) {
+    fs.writeFile('data/a/' + newItem['_id'] + '.json', JSON.stringify(item), function (err) {
       if (err) throw err;
     });
     return await newItem.save();

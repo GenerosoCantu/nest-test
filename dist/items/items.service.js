@@ -47,7 +47,7 @@ let ItemsService = class ItemsService {
     }
     async create(item) {
         const newItem = new this.itemModel(item);
-        fs.writeFile('../data/a/' + newItem['_id'] + '.json', JSON.stringify(item), function (err) {
+        fs.writeFile('data/a/' + newItem['_id'] + '.json', JSON.stringify(item), function (err) {
             if (err)
                 throw err;
         });
