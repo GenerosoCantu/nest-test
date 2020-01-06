@@ -36,7 +36,7 @@ let ItemsController = class ItemsController {
     update(updateItemDto, id) {
         return this.itemsService.update(id, updateItemDto);
     }
-    uploadFile(file) {
+    async uploadFile(file) {
         return this.itemsService.uploadFile(file);
     }
 };
@@ -76,11 +76,11 @@ __decorate([
 ], ItemsController.prototype, "update", null);
 __decorate([
     common_1.Post('upload'),
-    common_2.UseInterceptors(platform_express_1.FilesInterceptor('file')),
+    common_2.UseInterceptors(platform_express_1.FilesInterceptor('file', 1, { dest: './data/tmp' })),
     __param(0, common_2.UploadedFiles()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], ItemsController.prototype, "uploadFile", null);
 ItemsController = __decorate([
     common_1.Controller('items'),

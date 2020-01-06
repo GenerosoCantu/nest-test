@@ -3,7 +3,7 @@ import { CreateItemDto } from './dto/create-item.dto';
 import { ItemsService } from './items.service';
 import { Item } from './interfaces/item.interface';
 import { ValidationPipe, ParseUUIDPipe, UploadedFile, UseInterceptors, UploadedFiles } from '@nestjs/common';
-import { FilesInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 
 
 @Controller('items')
@@ -43,8 +43,8 @@ export class ItemsController {
   }
 
   @Post('upload')
-  @UseInterceptors(FilesInterceptor('file'))
-  uploadFile(@UploadedFiles() file) {
+  @UseInterceptors(FilesInterceptor('file', 1, { dest: './data/tmp' }))
+  async uploadFile(@UploadedFiles() file) {
     return this.itemsService.uploadFile(file);
   }
 

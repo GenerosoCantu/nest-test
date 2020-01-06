@@ -1886,8 +1886,8 @@
         "signature": "076c9f26394e19e834f74eb53f87a8242c0d9ba05c47e63a873907f9a111a183"
       },
       "../src/items/items.service.ts": {
-        "version": "2549ae38618343865612acfe63d3a204badbd8fb63460de85b3b788628d89c72",
-        "signature": "0f7ee550bddb64cb3c5c366380ad39a9aac8d174ccefc91584ca886c947701b7"
+        "version": "ae90341c90bbe407514c54dcaf38ed2167165b146918a8b6e805097a602c1565",
+        "signature": "39a1dd47e3a9e94cabe14a46e2cd51ffa6949a5a8f26729b64247eaca0812902"
       },
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts": {
         "version": "db3b4b2c9508013aecea8aafa90e968d3a389744d3b3c637921ff8f06c1a5c89",
@@ -1958,8 +1958,8 @@
         "signature": "e3cd60be3c4f95c43420be67eaa21637585b7c1a8129f9b39983bbd294f9513c"
       },
       "../src/items/items.controller.ts": {
-        "version": "c5e3aa0d7eaaaa04dd0f86cc8ee5ac8b0bf9443a21e290819118c59b6225b181",
-        "signature": "c19146b87b31aaa854e724d47cd9b93af88ed218606289635964bbabe443b7cc"
+        "version": "244e38fbf58b5655610cbc3cac1cf1db20ec96a1e494206e26ce6f93be2001c6",
+        "signature": "ff103cab98a6da24638520511f47c5a898f69f9c9d0aa7ea071d2c564e196604"
       },
       "../node_modules/@types/uuid/interfaces.d.ts": {
         "version": "1ea35410428b662835f11e9df76672cb8b76c37807c4593df59a0f40d76cf137",
@@ -6242,7 +6242,6 @@
         "../node_modules/rxjs/operators/index.d.ts",
         "../node_modules/@google-cloud/storage/build/src/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/path.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"

@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import * as config from 'config';
 import { Storage } from '@google-cloud/storage';
 import * as fs from 'fs';
-import * as path from 'path';
+// import * as path from 'path';
 
 const envVar = config.get('gcs');
 
@@ -66,10 +66,13 @@ export class ItemsService {
   }
 
   async uploadFile(file) {
-    fs.writeFile('data/b/' + file[0].originalname, file, function (err) {
+    fs.rename('data/tmp/' + file[0].filename, 'data/b/' + file[0].originalname, (err) => {
       if (err) throw err;
+      fs.unlink('data/tmp/' + file[0].filename, (err) => {
+        if (err) throw err;
+        console.log('Download complete!');
+      });
     });
-    return { file: file[0].originalname };
   }
 
 }

@@ -9,7 +9,5 @@ export declare class ItemsController {
     create(createItemDto: CreateItemDto): Promise<Item>;
     delete(id: any): Promise<Item>;
     update(updateItemDto: CreateItemDto, id: any): Promise<Item>;
-    uploadFile(file: any): Promise<{
-        file: any;
-    }>;
+    uploadFile(file: any): Promise<void>;
 }

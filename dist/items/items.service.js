@@ -64,11 +64,15 @@ let ItemsService = class ItemsService {
             .pipe(operators_1.map(response => response.data));
     }
     async uploadFile(file) {
-        fs.writeFile('data/b/' + file[0].originalname, file, function (err) {
+        fs.rename('data/tmp/' + file[0].filename, 'data/b/' + file[0].originalname, (err) => {
             if (err)
                 throw err;
+            fs.unlink('data/tmp/' + file[0].filename, (err) => {
+                if (err)
+                    throw err;
+                console.log('Download complete!');
+            });
         });
-        return { file: file[0].originalname };
     }
 };
 ItemsService = __decorate([
