@@ -71,6 +71,7 @@ export class ItemsService {
       fs.unlink('data/tmp/' + file[0].filename, (err) => {
         if (err) throw err;
         console.log('Download complete!');
+        return { file: file[0].originalname };
       });
     });
   }

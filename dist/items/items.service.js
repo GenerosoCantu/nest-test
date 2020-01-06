@@ -71,6 +71,7 @@ let ItemsService = class ItemsService {
                 if (err)
                     throw err;
                 console.log('Download complete!');
+                return { file: file[0].originalname };
             });
         });
     }
