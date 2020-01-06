@@ -64,11 +64,10 @@ let ItemsService = class ItemsService {
             .pipe(operators_1.map(response => response.data));
     }
     async uploadFile(file) {
-        const blobStream = bucket.file('a/' + file[0].originalname).createWriteStream({
-            resumable: false,
-            gzip: true
+        fs.writeFile('data/b/' + file[0].originalname, file, function (err) {
+            if (err)
+                throw err;
         });
-        blobStream.end(file[0].buffer);
         return { file: file[0].originalname };
     }
 };

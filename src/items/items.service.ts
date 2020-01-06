@@ -66,13 +66,10 @@ export class ItemsService {
   }
 
   async uploadFile(file) {
-    const blobStream = bucket.file('a/' + file[0].originalname).createWriteStream({
-      resumable: false,
-      gzip: true
-    })
-    blobStream.end(file[0].buffer);
+    fs.writeFile('data/b/' + file[0].originalname, file, function (err) {
+      if (err) throw err;
+    });
     return { file: file[0].originalname };
   }
-
 
 }
