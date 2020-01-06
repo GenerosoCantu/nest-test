@@ -46,20 +46,11 @@ let ItemsService = class ItemsService {
         return found;
     }
     async create(item) {
-        fs.writeFile("tmp.json", JSON.stringify(item), function (err) {
+        const newItem = new this.itemModel(item);
+        fs.writeFile('data/a/' + newItem['_id'] + '.json', JSON.stringify(item), function (err) {
             if (err)
                 throw err;
-            fs.readFile("tmp.json", function (err, data) {
-                if (err)
-                    throw err;
-                const blobStream = bucket.file('b/' + 'data.json').createWriteStream({
-                    resumable: false,
-                    gzip: true
-                });
-                blobStream.end(data);
-            });
         });
-        const newItem = new this.itemModel(item);
         return await newItem.save();
     }
     async delete(id) {
