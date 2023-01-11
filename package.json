@@ -32,7 +32,7 @@
     "@nestjs/swagger": "^3.1.0",
     "@types/uuid": "^3.4.6",
     "class-transformer": "^0.2.3",
-    "class-validator": "^0.11.0",
+    "class-validator": "^0.14.0",
     "config": "^3.2.4",
     "fastify-swagger": "^2.4.0",
     "mongoose": "^5.7.13",
